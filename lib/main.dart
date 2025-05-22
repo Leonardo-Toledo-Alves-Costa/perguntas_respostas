@@ -2,53 +2,57 @@ import 'package:flutter/material.dart';
 import './questao.dart';
 import './resposta.dart';
 
-class PerguntaAppState extends State<PerguntaApp> {
-  var perguntaSelecionada = 0;
+void main() => runApp(const PerguntaApp());
 
-  void responder(){
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
+
+  void _responder() {
     setState(() {
-      perguntaSelecionada++;
+      _perguntaSelecionada++;
     });
-    print(perguntaSelecionada);
   }
 
   @override
-  Widget build(BuildContext context){
-    final List<String> perguntas = [
-      'Qual a sua cor favorita?',
-      'Qual seu animal favorito?',
-      'Qual sua comida preferida?'
+  Widget build(BuildContext context) {
+    final perguntas = [
+      {
+        'Texto': 'qual sua cor favorita?',
+        'Resposta': ['Azul', 'Amarelo', 'Vermelho', 'Preto']
+      },
+      {
+        'Texto': 'qual seu animal favorito?',
+        'Resposta': ['Leão', 'Gato', 'Cachorro', 'Bagre']
+      },
+      {
+        'Texto': 'qual a sua área Asimover favorita?',
+        'Resposta': ['Mobile', 'CDD', 'Desktop', 'RH']
+      }
     ];
-
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("AsiPerguntas"),
+          title: const Text('Perguntas'),
         ),
         body: Column(
           children: [
-            Questao(perguntas[perguntaSelecionada]),
-            Resposta('Resposta 1'),
-            Resposta('Resposta 3'),
-            Resposta('Resposta 2')
+            Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
+            Resposta('Resposta 1', _responder),
+            Resposta('Resposta 2', _responder),
+            Resposta('Resposta 3', _responder),
           ],
         ),
-      )
+      ),
     );
   }
-
 }
 
-class PerguntaApp extends StatefulWidget{
+class PerguntaApp extends StatefulWidget {
   const PerguntaApp({super.key});
 
   @override
-  PerguntaAppState createState(){
-    return PerguntaAppState();
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }
-
-
- 
-main() => runApp(PerguntaApp());
